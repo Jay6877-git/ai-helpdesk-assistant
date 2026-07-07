@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 
 from app.models.user import User
 from app.schemas.user import UserRegister, UserResponse
+from app.core.security import hash_password
 
 class UserService:
     """Business logic for user account operations."""
@@ -11,7 +12,7 @@ class UserService:
         new_user = User(
             email=user.email,
             full_name=user.full_name,
-            password_hash= user.password
+            password_hash= hash_password(user.password)
         )
 
         # Commit first so the database assigns primary-key values, then refresh
