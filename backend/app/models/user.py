@@ -3,6 +3,8 @@ from sqlalchemy import column, Integer, String, Column
 from app.db.database import Base
 
 class User(Base):
+    """Database model for registered helpdesk users."""
+
     __tablename__ = 'users'
 
     id = Column(
@@ -11,6 +13,7 @@ class User(Base):
         index=True
     )
 
+    # Email is used as the unique account identifier.
     email = Column(
         String,
         unique=True,
@@ -18,6 +21,7 @@ class User(Base):
         nullable=False
     )
 
+    # Store the password value separately from the public response schema.
     password_hash = Column(
         String,
         nullable=False

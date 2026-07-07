@@ -4,13 +4,17 @@ from app.routers.auth import router as auth_router
 from app.db.database import Base, engine
 from app.models.user import User
 
+# Import model modules before creating tables so SQLAlchemy registers them
+# with Base.metadata.
 app = FastAPI(
     title="AI HelpDesk Assistant",
     description="Internal AI assistant for company employees",
     version="0.1.0",
 )
 
+# Create database tables for the registered models at application startup.
 Base.metadata.create_all(bind=engine)
 
+# Register API route groups with the FastAPI application.
 app.include_router(health_router)
 app.include_router(auth_router)

@@ -12,4 +12,5 @@ def register(
         user: UserRegister,
         db: Session = Depends(get_db)
 ):
+    """Create a new user account and return its public profile fields."""
     return user_service.register_user(user, db)
