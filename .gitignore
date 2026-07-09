@@ -1,3 +1,7 @@
+# Uploaded user documents
+uploads/
+
+
 # Virtual environment
 .venv/
 backend/.venv/
