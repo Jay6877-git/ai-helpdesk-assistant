@@ -21,7 +21,7 @@ session_factory = sessionmaker(
 Base = declarative_base()
 
 def get_db():
-    """Yield a database session and always close it after the request."""
+    """Yield a request-scoped database session and close it after the request."""
     db = session_factory()
     try:
         yield db

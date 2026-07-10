@@ -29,6 +29,7 @@ class UserService:
         )
 
     def login_user(self, email: str, password: str, db: Session) -> dict:
+        """Authenticate a user and return an OAuth2-compatible token response."""
         user = db.query(User).filter(User.email == email).first()
 
         if not user:
@@ -43,6 +44,8 @@ class UserService:
                 detail="Incorrect email or password"
             )
 
+        # Store the user id in the standard `sub` claim so later dependencies
+        # can resolve the token back to a database user.
         token = create_access_token(data={"sub": str(user.id)})
 
         return {
@@ -52,6 +55,7 @@ class UserService:
 
 
     def current_user(self, token: str, db: Session) -> UserResponse:
+        """Resolve a bearer token to the public user response model."""
         payload = decode_access_token(token)
 
         if payload is None:
@@ -62,6 +66,7 @@ class UserService:
 
         user_id = payload.get("sub")
 
+        # Tokens without a subject cannot be mapped back to an account.
         if user_id is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,

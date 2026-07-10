@@ -20,5 +20,5 @@ def login(
         user: UserLogin,
         db: Session = Depends(get_db)
 ):
-    """Log user in"""
+    """Validate credentials and return a bearer token for authenticated routes."""
     return user_service.login_user(user.email, user.password, db)
