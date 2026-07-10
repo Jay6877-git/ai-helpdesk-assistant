@@ -9,4 +9,5 @@ router = APIRouter()
 def get_me(
         current_user: UserResponse = Depends(get_current_user),
 ):
+    """Return the profile represented by the bearer token."""
     return current_user

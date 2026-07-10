@@ -9,6 +9,7 @@ from app.db.database import Base, engine
 
 from app.models.user import User
 from app.models.document import Document
+from app.models.document_chunk import DocumentChunk
 
 # Import model modules before creating tables so SQLAlchemy registers them
 # with Base.metadata.
